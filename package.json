@@ -1,0 +1,23 @@
+{
+  "name": "d3_refresh",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "browser-sync start -s -f index.html src --no-ui --no-notify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qh4r/d3_refresh.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qh4r/d3_refresh/issues"
+  },
+  "homepage": "https://github.com/qh4r/d3_refresh#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.13"
+  }
+}
