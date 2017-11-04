@@ -41,3 +41,8 @@ const ordinalScale = d3.scaleOrdinal()
   .range(['red', 'blue', 'white']);
 
 console.log(ordinalScale('cat')); // red
+
+// to get min/max from data set use d3.min/ d3.max ~~ d3.min(data, cb(data): valueToCompare)
+// to get array of both (like from invertExtent use d3.extent ~~ will return [min, max]
+
+// d3.set return unique value from given set
