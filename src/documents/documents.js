@@ -69,13 +69,35 @@ const bars3 = d3.select('.chart-3')
   .data(data)
   .enter()
   .append('g')
-  .attr('transform', (d, i) => `translate(0, ${i * 55})`);
-// g need transform translate(x,y) instead of x y
+  .attr('transform', (d, i) => `translate(0, ${i * 55})`)
+  .on('click', function () {
+    //this is dom element
+    console.log('hi', this, d3.select(this))
+    // d3.select(this) produces selection
+    // ITS IMPORTANT NOT TO USE arrow function cause of this
+    const wrapper = d3.select(this);
+    wrapper.select('text').text(d => d.age);
+  });
 
+// selection function that gets selection item as first arg by default ~~~ its triggered by .call method
+const selectionFill = (selection, fill) => selection.style('fill', fill);
+
+// g need transform translate(x,y) instead of x y
 bars3
   .append('rect')
   .style('width', d => `${ageScale(d.age)}`) // svg does not require px
-  .classed('bar-style', true);
+  .classed('bar-style', true)
+  .on('mouseover', function(d, i, elements){
+    d3.selectAll(elements)
+      .filter(':not(:hover)') // filter accepts query selector to filter current selection array
+      .style('opacity', '0.5');
+    d3.select(this).call(selectionFill, 'green');
+  })
+  .on('mouseleave', function(d, i, elements){
+    console.log(d, i , elements); // last element is always all eleemnts of selection
+    d3.selectAll(elements).style('opacity', '1');
+    d3.select(this).call(selectionFill, 'chocolate');
+  });
 
 bars3
   .append('text') // text is positioned at its bottom so y 30 will make its bottom 30px from g's top
