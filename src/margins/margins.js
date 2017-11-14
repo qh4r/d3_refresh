@@ -28,7 +28,7 @@ const yScale = d3.scaleLinear()
   .range([height, 0]);
 
 // axis automaticly creates proper axis from bottom to top
-const yAxis = d3.axisLeft(yScale).style('fill', 'cyan')
+const yAxis = d3.axisLeft(yScale)
   // .ticks(8); //ticks do not guarantee number of ticks presented !!!!
   .tickValues([20, 40, 60, 80])
   .tickSize(0)
