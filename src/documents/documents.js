@@ -87,14 +87,14 @@ bars3
   .append('rect')
   .style('width', d => `${ageScale(d.age)}`) // svg does not require px
   .classed('bar-style', true)
-  .on('mouseover', function(d, i, elements){
+  .on('mouseover', function (d, i, elements) {
     d3.selectAll(elements)
       .filter(':not(:hover)') // filter accepts query selector to filter current selection array
       .style('opacity', '0.5');
     d3.select(this).call(selectionFill, 'green');
   })
-  .on('mouseleave', function(d, i, elements){
-    console.log(d, i , elements); // last element is always all eleemnts of selection
+  .on('mouseleave', function (d, i, elements) {
+    console.log(d, i, elements); // last element is always all eleemnts of selection
     d3.selectAll(elements).style('opacity', '1');
     d3.select(this).call(selectionFill, 'chocolate');
   });
@@ -104,3 +104,35 @@ bars3
   .text(d => d.name)
   .attr('y', '30')
   .attr('x', '5');
+
+function updateChart3() {
+  bars3
+    .selectAll('rect')
+    .transition()
+    .duration(1000)
+    .ease(d3.easeBounceOut) // there are plenty
+    .style('width', d => `${ageScale(d.age)}`) // svg does not require px
+  // could add new transition and after it new style changes to have transitions after each other
+}
+
+// can create reusable transitions ~~ t is transition
+function configureTransition(t, delay, ease) {
+  t.delay(delay).ease(ease);
+}
+
+// THEN call it like so:
+// .transition()
+// .call(configureTransition, 500, d3.easeElasticOut)
+// can continue call queue after
+
+updateChart3();
+(function () {
+  let i = 0;
+  setInterval(function () {
+    data.forEach(function (x) {
+      x.age += i < 5 ? 10 : -10;
+    });
+    i = (i + 1) % 10;
+    updateChart3();
+  }, 2000);
+})();
